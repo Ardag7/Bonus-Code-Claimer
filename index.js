@@ -37,8 +37,10 @@ let lastMsgsNumCur = MAX_LINES_COUNT;
 // Define variables for the spans
 const usernameSpan = $('#111');
 const rankSpan = $('#112');
+const rankPSpan = $('#122');
 const vipProgressSpan = $('#113');
-const ticketSpan = $('#114');
+const ReloadD = $('#114');
+
 
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -51,16 +53,29 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         vipProgressSpan.text(`VIP Progress: ${persentage}`);
 
         $('#sendMessage').text(username);
+        const percentageFormatted = persentage.replace('%', '').replace(',', '.');
+        var progressBar = document.getElementById('myBar');
 
-        
+        // Select the progress bar element
+        var progressBar = document.getElementById('myBar');
+
+        // Set the width of the progress bar
+        progressBar.style.width = percentageFormatted + '%';
     }
+
+    if (request.type === 'timeAndDate') {
+        const { time, date } = request.data;
+        
+        // Update the spans with the received user information
+        ReloadD.text(`Reload expires at: ${time}, ${date}`);        
+    }
+
     if (request.type === 'UserInfo1') {
         const ticket = request.data;
         
         // Update the spans with the received user information
         ticketSpan.text(`Ticket Number: ${ticket}`);
     }
-
 });
 
 $(document).ready(function () {
@@ -96,6 +111,23 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    // Function to get URL parameters
+    const getUrlParameter = function (name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
+
+    // Retrieve the selected domain from the URL parameter
+    const selectedStake = getUrlParameter('selectedStake');
+    if (selectedStake) {
+        // Set the default value for the domain selector
+        $('#stakeSelector').val(selectedStake);
+    }
+});
+
 // Get DOM elements
 const reloadCheckbox = document.getElementById('reload');
 const countdownTimer = document.getElementById('countdownTimer');
@@ -124,9 +156,24 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         stopReload();
         reloadCheckbox.checked = false;
     } else if (request.type === 'ReloadFinished') {
-        countdownTimer.textContent = 'Your Reload Finished';
-        stopReload();
-        reloadCheckbox.checked = false;
+        const { time, date } = request.data; // Destructure time and date from request data
+        const currentTime = new Date();
+        const [hourss, minutess] = time.split(':').map(str => parseInt(str));
+        const [dayss, month, year] = date.split('.').map(str => parseInt(str));
+        const reloadTime = new Date(year, month - 1, dayss, hourss, minutess); // month is 0-based index, hence month - 1
+        
+        // Check if reload time is later than current time
+        if (reloadTime > currentTime) {
+            reloadCheckbox.checked = false;
+            reloadCheckbox.checked = true;
+        } else {
+            countdownTimer.textContent = 'Your Reload Finished';
+            stopReload();
+            reloadCheckbox.checked = false;
+        }
+    } else if (request.type === 'timeAndDate') {
+        const { time, date } = request.data;
+        ReloadD.text(`Reload expires at: ${time}, ${date}`);
     }
 });
 
@@ -161,9 +208,6 @@ reloadCheckbox.addEventListener('change', function() {
         stopReload();
     }
 });
-
-
-
 
 const disconnectAndReconnect = () => {
     clearLog(); // Clear messages log
@@ -427,7 +471,7 @@ const handleServerReply = function (reply) {
         // Format the registration date as DD-MM-YYYY
         registrationDate = registrationDate.replace(/\./g, ''); // Remove any periods
         const dateComponents = registrationDate.split('-');
-        const formattedDate = `${dateComponents[2]}-${dateComponents[1]}-${dateComponents[0]}`;
+        const formattedDate = `${dateComponents[2]}.${dateComponents[1]}.${dateComponents[0]}`;
 
         // Update the registration info in the span
         registrationSpan.text(`Server Registration : Registered until ${formattedDate}`);

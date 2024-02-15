@@ -84,6 +84,9 @@ chrome.runtime.onMessage.addListener(
         console.log('Button found, not active');
       }else if (request.type === 'RBFound') {
         console.log('Button found');
-      }
+      }else if (request.type === 'timeAndDate') {
+        const { time, date } = request.data; // Access data property
+        console.log(`Reload Expires at : Time=${time}, Date=${date}`);
+    }
   }
 );

@@ -382,7 +382,7 @@
       ],
 
       
-      "js": ["Bonus.js", "Rakeback.js", "Module.js", "Reload.js", "Info.js", "Info1.js"]
+      "js": ["Bonus.js", "Rakeback.js", "Module.js", "Reload.js", "Info.js", "Info1.js", "Reloadinfo.js"]
     }
   ],
   

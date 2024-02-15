@@ -5,12 +5,17 @@ body {
     font-size: 10pt;
     margin: 0;
     width: 100%;
+    background-image: url('https://stake.com/_app/immutable/assets/abstract-bg.71bdcaae.svg');
+    background-position: center;
+    background-size: cover; /* Set the size of the background image */
+    background-repeat: no-repeat; /* Repeat the background image */
 }
 
 fieldset {
     border: 1px solid #ffffffb3;
     margin: 0 0 10px 0;
     padding: 1px 15px;
+
 }
 
 legend {
@@ -26,7 +31,7 @@ label {
 }
 
 .viewMessage {
-    background-color: #162034;
+    background-color: transparent;
     border: 1px dotted #777;
     float: left;
     font-family: "DejaVu Sans Mono", monospace;
@@ -47,7 +52,7 @@ label {
 }
 
 .messages {
-    background-color: #162034;
+    background-color: transparent;
     border: 1px dotted #777;
     float: right;
     font-family: "DejaVu Sans Mono", monospace;
@@ -70,7 +75,7 @@ label {
 }
 
 #bonusMessages {
-    background-color: #1a2c38;
+    background-color: transparent;
     border: 1px dotted #1a2c38;
     float: none; /* Adjust as needed */
     height: 300px;
@@ -86,7 +91,7 @@ label {
 }
 
 #bonusMessages::-webkit-scrollbar-thumb {
-    background-color: #ad4848; /* Change this to your desired color */
+    background-color: transparent; /* Change this to your desired color */
 }
 
 #bonusMessages pre {
@@ -98,6 +103,7 @@ label {
     width: fit-content;
     white-space: pre-wrap;
     word-wrap: break-word;
+    background-color: transparent;
 }
 
 #bonusMessages pre.bonus-code {
@@ -131,7 +137,9 @@ label {
     border: 1px solid #d9ff00;
     width: 50%; /* Set width to 50% to fill half of the container */
     box-sizing: border-box;
+
 }
+
 
 #filterMessage {
     border: 1px solid #d9ff00;
@@ -165,7 +173,7 @@ label {
 }
 
 #viewMessage {
-    background-color: #3f4c8246;
+    background-color: transparent;
     border: 1px dotted #3f4c8246;
     float: left;
     height: 200px;
@@ -178,7 +186,7 @@ label {
 }
 
 #messages {
-    background-color: #1a2c38;
+    background-color: transparent;
     border: 0px dotted #c9d4db;
     float: left;
     height: 100px;
@@ -208,6 +216,7 @@ label {
     white-space: pre-wrap;
     word-wrap: break-word;
     font-size: 11px; /* Adjust the size to your preference */
+    background-color: transparent;
 }
 
 #messages pre.bonus-code {
@@ -233,11 +242,13 @@ label {
 }
 
 .fieldset-container {
+    background-color: transparent;
     display: flex;
     justify-content: space-between; /* Distribute items evenly */
 }
 
 .fieldset-variant {
+    background-color: transparent;
     border: 1px solid #4d4c8d;
     padding: 10px;
     width: calc(33.33% - 10px); /* 33.33% width for each variant with 20px margin on each side */
@@ -245,18 +256,20 @@ label {
 }
 
 .fieldset-variant legend {
+    background-color: transparent;
     color: #ffcc00;
     font-size: 12pt;
     font-weight: normal;
 }
 
 .fieldset-variant label {
+    background-color: transparent;
     color: #ffcc00;
     font-weight: normal;
 }
 
 .fieldset-variant #bonusMessages {
-    background-color: #1a2c38;
+    background-color: transparent;
     border: 1px dotted #1a2c38;
     height: 300px;
     line-height: 100%;
@@ -267,7 +280,7 @@ label {
 }
 
 #newsMessages {
-    background-color: #1a2c38;
+    background-color: transparent;
     border: 1px dotted #1a2c38;
     float: left;
     height: 300px;
@@ -280,6 +293,7 @@ label {
     margin-right: 10px;
     color: #800080; /* Set color to purple */
     font-size: 12px; /* Adjust the size to your preference */
+
 }
 
 #newsMessages::-webkit-scrollbar {
@@ -287,7 +301,7 @@ label {
 }
 
 #newsMessages::-webkit-scrollbar-thumb {
-    background-color: #800080; /* Change this to your desired color */
+    background-color: transparent; /* Change this to your desired color */
 }
 
 #newsMessages pre {
@@ -299,6 +313,7 @@ label {
     width: fit-content;
     white-space: pre-wrap;
     word-wrap: break-word;
+    background-color: transparent;
 }
 
 #newsMessages .sent {
@@ -332,7 +347,7 @@ label {
 }
 
 .fieldset-option #bonusMessages {
-    background-color: #1a2c38;
+    background-color: transparent;
     border: 1px dotted #ff0202;
     height: 300px;
     line-height: 100%;
@@ -355,7 +370,7 @@ label {
 }
 
 .fieldset-option1 #bonusMessages {
-    background-color: #1a2c38;
+    background-color: transparent;
     border: 1px dotted #1a2c38;
     height: 300px;
     line-height: 150%;
@@ -431,4 +446,17 @@ button {
 
 .content2 span {
     display: block;
+}
+
+#myProgress {
+    width: 27%;
+    background-color: #2f4553;
+    border-radius: 5px;
+}
+  
+#myBar {
+    width: 0%;
+    height: 11px;
+    background-color: #1fff20;
+    border-radius: 5px;
 }

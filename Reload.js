@@ -5,6 +5,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
 });
 
+document.addEventListener('DOMContentLoaded', injectReloadScript);
+
 function injectReloadScript() {
     console.log('inject started');
     const checkExist = setInterval(function() {
@@ -29,7 +31,7 @@ function injectReloadScript() {
                 setTimeout(() => {
                     chrome.runtime.sendMessage({ type: "RBnotactiveandFetchstarted" });
                     fetchCountdownAndSendMessage();
-                }, 1000);
+                }, 3000);
             } else {
                 clearInterval(checkExist);
                 clearTimeout(buttonTimeout);
@@ -59,6 +61,7 @@ function injectReloadScript() {
             if (countdownContainer) {
                 chrome.runtime.sendMessage({ type: "CountDFound" });
                 console.log('Countdown found');
+
                 clearInterval(checkCExist);
                 clearTimeout(countdownTimeout);
     
@@ -104,7 +107,7 @@ function injectReloadScript() {
                     clearInterval(checkCExist);
                     chrome.runtime.sendMessage({ type: "ReloadFinished" });
                     window.close();
-                }, 25000);
+                }, 30000);
             }
         }, 100);
     }

@@ -4,7 +4,7 @@ $(document).ready(function() {
     startButton.click(function() {
         const selectedStake = $('#stakeSelector').val();
         const infoUrl = `https://${selectedStake}/casino/home?tab=progress&modal=vip`;
-        const mainUrl = `index.html`;
+        const mainUrl = `index.html?selectedStake=${selectedStake}`;
 
         // Open the URLs in new tabs/windows
         window.close();
