@@ -1,0 +1,434 @@
+body {
+    background-color: #1a2c38;
+    color: #ffffff;
+    font-family: "DejaVu Sans", Arial, sans-serif;
+    font-size: 10pt;
+    margin: 0;
+    width: 100%;
+}
+
+fieldset {
+    border: 1px solid #ffffffb3;
+    margin: 0 0 10px 0;
+    padding: 1px 15px;
+}
+
+legend {
+    color: #ffffff;
+    font-size: 11pt;
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+label {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.viewMessage {
+    background-color: #162034;
+    border: 1px dotted #777;
+    float: left;
+    font-family: "DejaVu Sans Mono", monospace;
+    height: 200px;
+    line-height: 150%;
+    overflow: scroll;
+    padding: 0 5px;
+    resize: none;
+    white-space: pre;
+    width: 25%; /* Set width to 50% of the page */
+    font-size: 12px; /* Adjust the size to your preference */
+}
+
+.viewMessage span {
+    font-family: "DejaVu Sans Mono", monospace;
+    white-space: pre !important;
+    word-wrap: normal !important;
+}
+
+.messages {
+    background-color: #162034;
+    border: 1px dotted #777;
+    float: right;
+    font-family: "DejaVu Sans Mono", monospace;
+    height: 300px;
+    line-height: 150%;
+    overflow: scroll;
+    padding: 0 5px;
+    resize: none;
+    white-space: pre;
+    width: 35%; /* Set width to 50% of the page */
+    font-size: 12px; /* Adjust the size to your preference */
+}
+
+.hidden {
+    display: none;
+}
+
+.option_row {
+    margin-bottom: 4px;
+}
+
+#bonusMessages {
+    background-color: #1a2c38;
+    border: 1px dotted #1a2c38;
+    float: none; /* Adjust as needed */
+    height: 300px;
+    line-height: 150%;
+    overflow: hidden;
+    padding: 0 5px;
+    resize: none;
+    width: 100%; /* Adjust the width as needed */
+}
+
+#bonusMessages::-webkit-scrollbar {
+    width: 1px; /* Width of the scrollbar */
+}
+
+#bonusMessages::-webkit-scrollbar-thumb {
+    background-color: #ad4848; /* Change this to your desired color */
+}
+
+#bonusMessages pre {
+    /* Your existing styles for messages */
+    color: #00ff3c;
+    font-family: "DejaVu Sans Mono", monospace;
+    margin: 10;
+    min-width: fit-content;
+    width: fit-content;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+#bonusMessages pre.bonus-code {
+    color: #ff0000; /* Change this to the desired color for the bonus code */
+}
+
+#bonusMessages .sent {
+    color: #f63;
+}
+
+#connectButton.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#connectionStatus {
+    font-weight: bold;
+}
+
+#content {
+    padding: 10px; 
+}
+
+#content1 {
+    border: 1px solid #d9ff00;
+    width: 50%; /* Set width to 50% to fill half of the container */
+    box-sizing: border-box;
+}
+
+#content2 {
+    border: 1px solid #d9ff00;
+    width: 50%; /* Set width to 50% to fill half of the container */
+    box-sizing: border-box;
+}
+
+#filterMessage {
+    border: 1px solid #d9ff00;
+    padding: 1px 3px;
+    width: 500px;
+}
+
+#lastMsgsNum {
+    border: 1px solid #999;
+    padding: 1px 3px;
+    width: 50px;
+}
+
+
+#sendMessageLabel {
+    display: inline-block;
+    vertical-align: top; /* Aligns the label with the top of the textarea */
+    margin-top: 5px; /* Adjust the top margin as needed */
+}
+
+#sendMessage {
+    height: 16px; /* Adjust the height as per your requirement */
+    min-width: 50px;
+    width: 80px;
+    resize: none;
+    vertical-align: top; /* Aligns the textarea with the top of the label */
+}
+
+.disabledText {
+    color: #aaa;
+}
+
+#viewMessage {
+    background-color: #3f4c8246;
+    border: 1px dotted #3f4c8246;
+    float: left;
+    height: 200px;
+    line-height: 150%;
+    overflow: scroll;
+    padding: 0 5px;
+    resize: vertical;
+    width: calc(50% - 10px); /* Adjust the width as needed */
+    margin-right: 20px;
+}
+
+#messages {
+    background-color: #1a2c38;
+    border: 0px dotted #c9d4db;
+    float: left;
+    height: 100px;
+    line-height: 150%;
+    overflow: hidden;
+    padding: 0 0px;
+    resize: none;
+    width: calc(100% - 10px); /* Adjust the width as needed */
+    margin-right: 40px;
+}
+
+#messages::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+#messages::-webkit-scrollbar-thumb {
+    background-color: #ad4848; /* Change this to your desired color */
+}
+
+#messages pre {
+    /* Your existing styles for messages */
+    color: #dbbfd3;
+    font-family: "DejaVu Sans Mono", monospace;
+    margin: 0;
+    min-width: fit-content;
+    width: fit-content;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 11px; /* Adjust the size to your preference */
+}
+
+#messages pre.bonus-code {
+    color: #ff0000; /* Change this to the desired color for the bonus code */
+}
+
+#messages .sent {
+    color: #f63;
+}
+
+.description {
+    margin-left: 10px; /* Adjust the value as per your preference */
+    margin-right: 10px; /* Adjust the value as per your preference */
+}
+
+.description a {
+    color: rgb(197, 101, 101);
+}
+
+.center-image {
+    display: block;
+    margin: 0 auto;
+}
+
+.fieldset-container {
+    display: flex;
+    justify-content: space-between; /* Distribute items evenly */
+}
+
+.fieldset-variant {
+    border: 1px solid #4d4c8d;
+    padding: 10px;
+    width: calc(33.33% - 10px); /* 33.33% width for each variant with 20px margin on each side */
+    box-sizing: border-box;
+}
+
+.fieldset-variant legend {
+    color: #ffcc00;
+    font-size: 12pt;
+    font-weight: normal;
+}
+
+.fieldset-variant label {
+    color: #ffcc00;
+    font-weight: normal;
+}
+
+.fieldset-variant #bonusMessages {
+    background-color: #1a2c38;
+    border: 1px dotted #1a2c38;
+    height: 300px;
+    line-height: 100%;
+    overflow: hidden;
+    padding: 0 5px;
+    resize: none;
+    width: 90%;
+}
+
+#newsMessages {
+    background-color: #1a2c38;
+    border: 1px dotted #1a2c38;
+    float: left;
+    height: 300px;
+    line-height: 100%;
+    overflow: hidden;
+    padding: 0 5px;
+    resize: none;
+    white-space: pre;
+    width: calc(100% - 10px); /* Adjust the width as needed */
+    margin-right: 10px;
+    color: #800080; /* Set color to purple */
+    font-size: 12px; /* Adjust the size to your preference */
+}
+
+#newsMessages::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+#newsMessages::-webkit-scrollbar-thumb {
+    background-color: #800080; /* Change this to your desired color */
+}
+
+#newsMessages pre {
+    /* Your existing styles for messages */
+    color: #ff009d;
+    font-family: "DejaVu Sans Mono", monospace;
+    margin: 10;
+    min-width: fit-content;
+    width: fit-content;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+#newsMessages .sent {
+    color: #800080; /* Set color to purple */
+}
+
+.fieldset-option {
+    border: 0px solid #ff0202;
+    padding: 10px;
+    margin-right: 1px;
+    width: 520px; /* Replace with your desired fixed width */
+    box-sizing: border-box;
+}
+
+.fieldset-option1 {
+    border: 1px solid #ff0202;
+    padding: 10px;
+    width: 50%; /* Set width to 50% to fill half of the remaining space */
+    box-sizing: border-box;
+}
+
+.fieldset-option legend {
+    color: #ffffff;
+    font-size: 12pt;
+    font-weight: normal;
+}
+
+.fieldset-option label {
+    color: #ffffff;
+    font-weight: normal;
+}
+
+.fieldset-option #bonusMessages {
+    background-color: #1a2c38;
+    border: 1px dotted #ff0202;
+    height: 300px;
+    line-height: 100%;
+    overflow: hidden;
+    padding: 0 1dvh;
+    resize: none;
+    width: 100%;
+}
+
+.fieldset-option1 legend {
+    color: #ffffff;
+    font-size: 12pt;
+    font-weight: normal;
+    align-self: center;
+}
+
+.fieldset-option1 label {
+    color: #ffffff;
+    font-weight: normal;
+}
+
+.fieldset-option1 #bonusMessages {
+    background-color: #1a2c38;
+    border: 1px dotted #1a2c38;
+    height: 300px;
+    line-height: 150%;
+    overflow: hidden;
+    padding: 0 5px;
+    resize: none;
+    width: 50%;
+}
+
+.slider-container {
+    display: flex;
+    align-items: left;
+    position: relative;
+    outline: 0;
+    width: var(--slider-size);
+    height: 1.5em;
+    border: var(--input-border-width) solid var(--input-border);
+    border-radius: 1em;
+    background: 0 0;
+    background-color: var(--input-border);
+    background-size: 100%;
+    background-image: none;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background var(--input-transition),border-color var(--input-transition);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.slider-container {
+    height: 20px; /* reduced height */
+    border-radius: 10px;  
+}
+  
+  input[type="range"] {
+    width: 30px; /* match toggle width */
+    height: 10px; /* match toggle height */
+    border-radius: 10px;
+}
+
+textarea {
+    background-color: #3c5566; /* Change this to your desired background color */
+    color: #ffffff; /* Change this to your desired font color */
+    border: 0.5px solid #3c5566; /* Change this to your desired border color */
+    border-radius: 5px; /* Adjust the border-radius for rounded corners */
+
+}
+
+select {
+    background-color: #1a2c38; /* Change this to your desired background color */
+    color: #ffffff; /* Change this to your desired font color */
+    border: 0.5px solid #3c5566; /* Change this to your desired border color */
+    border-radius: 5px; /* Adjust the border-radius for rounded corners */
+
+}
+
+button {
+    background-color: #3c5566; /* Change this to your desired background color */
+    color: #ffffff; /* Change this to your desired font color */
+    border: 1px solid #ddd; /* Change this to your desired border color */
+    border-radius: 5px; /* Adjust the border-radius for rounded corners */
+    cursor: pointer;
+
+}
+
+.container {
+    text-align: center; /* Center the content inside container */
+}
+
+.content-container {
+    display: flex;
+}
+
+.content2 span {
+    display: block;
+}

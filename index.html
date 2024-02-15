@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Stake Code Claimer</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body>
+    <div id="content">
+        <fieldset>
+            <legend>Bonus Code Server Login</legend>
+            <div class="content-container">
+                <div class="content1">
+                    <fieldset class="fieldset-option" style="margin-left: 0px;">
+                        <div>
+                            <label for="sendMessage" style="display: inline-block;">Stake Username:</label>
+                            <div id="sendMessage" contenteditable="false" style="display: inline-block;"></div>
+                            <span class="dash"> - </span>
+                            <button id="connectButton">Connect</button>
+                            <button id="disconnectButton" class="hidden">Disconnect</button>
+                            <span class="label-text">- Status:</span>
+                            <span id="connectionStatus">Disconnected</span>
+                            <button id="test">RB</button>
+                        </div>
+                        <div>
+                            <label for="stakeSelector">Stake Domain:</label>
+                            <select id="stakeSelector">
+                                <option value="stake.com">Stake.com</option>
+                                <option value="stake.ac">Stake.ac</option>
+                                <option value="stake.games">Stake.games</option>
+                                <option value="stake.bet">Stake.bet</option>
+                                <option value="stake.pink">Stake.pink</option>
+                                <option value="stake.mba">Stake.mba</option>
+                                <option value="stake.jp">Stake.jp</option>
+                                <option value="stake.bz">Stake.bz</option>
+                                <option value="staketr.com">Staketr.com</option>
+                                <option value="stake.ceo">Stake.ceo</option>
+                                <option value="stake.krd">Stake.krd</option>
+                                <option value="stake.blue">Stake.blue</option>
+                                <option value="stake.us">Stake.us</option>
+                            </select>
+                            <span class="dash"> - </span>
+                            <label for="cryptoSelector">Crypto Type:</label>
+                            <select id="cryptoSelector">
+                                <option value="trx">TRX</option>
+                                <option value="btc">BTC</option>
+                                <option value="eth">ETH</option>
+                                <option value="ltc">LTC</option>
+                                <option value="usdt">USDT</option>
+                                <option value="doge">DOGE</option>
+                                <option value="bch">BCH</option>
+                                <option value="xrp">XRP</option>
+                                <option value="eos">EOS</option>
+                                <option value="bnb">BNB</option>
+                                <option value="usdc">USDC</option>
+                                <option value="ape">APE</option>
+                                <option value="busd">BUSD</option>
+                                <option value="cro">CRO</option>
+                                <option value="dai">DAI</option>
+                                <option value="link">LINK</option>
+                                <option value="sand">SAND</option>
+                                <option value="shib">SHIB</option>
+                                <option value="uni">UNI</option>
+                                <option value="matic">MATIC</option>
+                                <option value="gold">GOLD (US)</option>
+                                <option value="sweeps">SWEEPS (US)</option>
+                            </select>
+                        </div>
+                        <label for="reloadSelector">Claim Reload:</label>
+                        <input type="checkbox" id="reload">
+                        <span id="countdownTimer"></span>
+                        <div class="checkbox-container">
+                            <label for="claimAutomatically">Do you want to claim Monthly-Weekly and Forum Challenge automatically?</label>
+                            <input type="checkbox" id="claimAutomatically" checked>
+                        </div>
+                        <div id="messages" style="margin-left: 10px;"></div>
+                        <div id="viewMessage" class="viewMessage hidden"></div>
+                    </fieldset>
+                </div>
+                <div class="content2">
+                    <fieldset class="fieldset-option" style="margin-left: 0px;">
+                        <div>
+                            <label id="tipxlat">For Your Appreciation:</label>
+                            <button id="tipxlate">Tip Xlate </button>
+                            <span id="111"></span>
+                            <span id="112"></span>
+                            <span id="113"></span>
+                            <span id="114"></span>
+                            <span id="115"></span>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset style="display: flex;">
+            <fieldset class="fieldset-variant" style="margin-right: 20px;">
+                <legend>Codes</legend>
+                <div id="bonusMessages" class="messages" style="margin-right: 20px;"></div>
+            </fieldset>
+            <fieldset class="fieldset-variant" style="margin-right: 20px;">
+                <legend>News & Links</legend>
+                <div id="newsMessages" class="messages" style="margin-left: 0px;"></div>
+            </fieldset>
+            <fieldset class="fieldset-variant" style="margin-right: 20px;">
+                <legend>Chat</legend>
+                <div>
+                    <label for="chatMessage">Your message:</label>
+                    <input type="text" id="chatMessage" />
+                    <button id="sendChatMessage">Send</button>
+                    <div id="chatHistory" style="max-height: 400px; height: 300px; overflow-y: auto; border: 1px solid #540101; padding: 5px;"></div>
+                </div>
+            </fieldset>
+        </fieldset>
+    </div>
+    <script src="lib/jquery.slim.min.js"></script>
+    <script src="lib/json-format-highlight.js"></script>
+    <script src="index.js"></script>
+
+</body>
+
+</html>
