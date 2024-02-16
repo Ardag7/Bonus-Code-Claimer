@@ -1,7 +1,7 @@
 {
   "name": "Stake Code Claimer",
   "manifest_version": 3,
-  "version": "2.1",
+  "version": "2.2",
   "description": "Get Bonus Codes and Claim Automatically",
   "icons": {
     "16":  "resources/icon_016.png",
@@ -380,14 +380,7 @@
         "https://stake.{com,ac,games,bet,pink,mba,jp,bz,ceo,krd,blue,us}/*/promotions/promotion/weekly-giveaway",
         "https://stake.krd/?tab=reload&modal*"
       ],
-
-      
-      "js": ["Bonus.js", "Rakeback.js", "Module.js", "Reload.js", "Info.js", "Info1.js", "Reloadinfo.js"]
+      "js": ["Bonus.js", "Rakeback.js", "Reload.js", "Info.js"]
     }
-  ],
-  
-  "key": "abjmpnmlmbibkphamjclgolamoklbbno", 
-  
-  "update_url": "https://storage.googleapis.com/bcclaimer/StakeCodeClaimer.crx" 
-  
+  ]  
 }

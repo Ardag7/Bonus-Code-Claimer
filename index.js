@@ -62,20 +62,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         // Set the width of the progress bar
         progressBar.style.width = percentageFormatted + '%';
     }
-
-    if (request.type === 'timeAndDate') {
-        const { time, date } = request.data;
-        
-        // Update the spans with the received user information
-        ReloadD.text(`Reload expires at: ${time}, ${date}`);        
-    }
-
-    if (request.type === 'UserInfo1') {
-        const ticket = request.data;
-        
-        // Update the spans with the received user information
-        ticketSpan.text(`Ticket Number: ${ticket}`);
-    }
 });
 
 $(document).ready(function () {
@@ -148,10 +134,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.type === 'countdownContainer') {
         clearInterval(reloadInterval);
         const { days, hours, minutes, seconds } = request;
-        countdownTimer.textContent = `Next Reload in: ${hours}:${minutes}:${seconds}`;
         // Start countdown
         startCountdown(hours, minutes, seconds);
-    } else if (request.type === 'NoReload') {
+    } else if (request.type === 'NoReloadwindowsClosingin5sec') {
         countdownTimer.textContent = 'No Active Reload';
         stopReload();
         reloadCheckbox.checked = false;
@@ -173,7 +158,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         }
     } else if (request.type === 'timeAndDate') {
         const { time, date } = request.data;
-        ReloadD.text(`Reload expires at: ${time}, ${date}`);
+        ReloadD.text(`Reload expires at: ${time} ${date}`);
     }
 });
 
@@ -189,11 +174,19 @@ function startCountdown(hours, minutes, seconds) {
             clearInterval(reloadInterval);
             openReloadUrl(); // Call your function here
         } else {
-            const nextReloadTime = countDownDate.toLocaleTimeString(); // Convert to local time string
+            let nextReloadTime;
+            if (isNaN(countDownDate)) {
+                nextReloadTime = "Invalid Date";
+                reloadCheckbox.checked = false;
+                reloadCheckbox.checked = true;
+            } else {
+                nextReloadTime = countDownDate.toLocaleTimeString(); // Convert to local time string
+            }
             countdownTimer.textContent = `Next Reload at: ${nextReloadTime}`;
         }
     }, 1000);
 }
+
 
 // Function to stop reload interval
 function stopReload() {

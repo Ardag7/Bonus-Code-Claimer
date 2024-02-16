@@ -26,11 +26,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     console.log('Message sent to Script-Info1');
   }
 
-  else if (changeInfo.status === 'complete' && tab.url.includes('promotion/weekly-giveaway')) {
-    chrome.tabs.sendMessage(tabId, { type: "Info2" });
-    console.log('Message sent to Script-Info2');
-  }
-
 });
 
 chrome.runtime.onMessage.addListener(
@@ -84,9 +79,11 @@ chrome.runtime.onMessage.addListener(
         console.log('Button found, not active');
       }else if (request.type === 'RBFound') {
         console.log('Button found');
+      }else if (request.type === 'ReloadFound1') {
+        console.log('Reload Found');
       }else if (request.type === 'timeAndDate') {
         const { time, date } = request.data; // Access data property
-        console.log(`Reload Expires at : Time=${time}, Date=${date}`);
+        console.log(`Reload Expires at : ${time} ${date}`);
     }
   }
 );

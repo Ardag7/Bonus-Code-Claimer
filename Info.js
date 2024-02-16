@@ -29,7 +29,7 @@ function injectInfo1Script() {
             sendDataToBackground({ username , rank , persentage });
             setTimeout(() => {
                 window.close();
-            }, 500);
+            }, 1000);
         
     }
 

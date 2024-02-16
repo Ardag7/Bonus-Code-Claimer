@@ -17,7 +17,8 @@ function injectBonusScript() {
               if (clickCount < 6) {
                   button.click();
                   clickCount++;
-              } else {
+              }
+              else {
                   clearInterval(clickInterval);
                   console.log('Bonus Button clicked.');
                   setTimeout(() => {
@@ -35,8 +36,7 @@ function injectBonusScript() {
             window.close();
           }, 25000);
       }
-  }, 100); // checks every 100ms
-
+  }, 50)
 
   chrome.runtime.sendMessage({ type: "Done" });
 }
