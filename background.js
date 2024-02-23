@@ -6,26 +6,18 @@ chrome.action.onClicked.addListener(() => {
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
-  if (changeInfo.status === 'complete' && tab.url.includes('redeemBonus')) {
+  if (changeInfo.status === 'complete' && tab.url.includes('modal=redeemBonus&app=CodeClaim')) {
     chrome.tabs.sendMessage(tabId, { type: "Bonus" });
     console.log('Message sent to Script-Bonus');
   }
-
   if ((changeInfo.status === 'complete' && (tab.url.includes('reload')) && !tab.url.includes('redeemBonus'))) {
     chrome.tabs.sendMessage(tabId, { type: "Reload" });
     console.log('Message sent to Script-Reload');
   }
-
-  else if (changeInfo.status === 'complete' && tab.url.includes('rakeback')) {
-    chrome.tabs.sendMessage(tabId, { type: "Rakeback" });
-    console.log('Message sent to Script-Rakeback');
-  }
-
-  else if (changeInfo.status === 'complete' && tab.url.includes('tab=progress')) {
+  else if (changeInfo.status === 'complete' && tab.url.includes('tab=progress&modal=vip&app=Bonuscode')) {
     chrome.tabs.sendMessage(tabId, { type: "Info1" });
     console.log('Message sent to Script-Info1');
   }
-
 });
 
 chrome.runtime.onMessage.addListener(
@@ -74,16 +66,15 @@ chrome.runtime.onMessage.addListener(
         console.log('Active button found');
       }else if (request.type === 'RBnotactiveandFetchstarted') {
         console.log('Button found, not active, Fetch will start');
-      }
-      else if (request.type === 'RBFoundNotActive') {
+      }else if (request.type === 'RBFoundNotActive') {
         console.log('Button found, not active');
       }else if (request.type === 'RBFound') {
         console.log('Button found');
       }else if (request.type === 'ReloadFound1') {
         console.log('Reload Found');
       }else if (request.type === 'timeAndDate') {
-        const { time, date } = request.data; // Access data property
-        console.log(`Reload Expires at : ${time} ${date}`);
-    }
+        const { time, date, date1 } = request.data;
+        console.log(`Reload Expires at : ${time} ${date} ${date1}`);
+      }
   }
 );

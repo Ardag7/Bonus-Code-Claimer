@@ -1,8 +1,6 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.type === "Bonus") {
-    setTimeout(() => {
-      injectBonusScript();
-    }, 1000);
+    injectBonusScript();
   }
 });
 

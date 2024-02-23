@@ -34,71 +34,58 @@ const sendChatMessageButton = $('#sendChatMessage');
 
 let lastMsgsNumCur = MAX_LINES_COUNT;
 
-// Define variables for the spans
 const usernameSpan = $('#111');
 const rankSpan = $('#112');
 const rankPSpan = $('#122');
 const vipProgressSpan = $('#113');
 const ReloadD = $('#114');
 
-
-// Listen for messages from the content script
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.type === 'UserInfo') {
-        const { username, rank, persentage } = request.data;
+    if (request.type === 'Username') {
+        const username11 = request.data;
+        console.log(`Username : ${username11}`);
+        usernameSpan.text(`Username: ${username11}`);
+        $('#sendMessage').text(username11);
+    }
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.type === 'Rank') {
+        const rank = request.data;
+        console.log(`Rank : ${rank}`);
         
-        // Update the spans with the received user information
-        usernameSpan.text(`Username: ${username}`);
         rankSpan.text(`User Rank: ${rank}`);
+    }
+    if (request.type === 'Percentage') {
+        const persentage = request.data;
+        console.log(`Persentage : ${persentage}`);
+
+
         vipProgressSpan.text(`VIP Progress: ${persentage}`);
 
-        $('#sendMessage').text(username);
         const percentageFormatted = persentage.replace('%', '').replace(',', '.');
         var progressBar = document.getElementById('myBar');
 
-        // Select the progress bar element
         var progressBar = document.getElementById('myBar');
 
-        // Set the width of the progress bar
         progressBar.style.width = percentageFormatted + '%';
     }
 });
 
 $(document).ready(function () {
-    // Wait for the document to be fully loaded
 
-    // Select the "Test" button by its ID
-    const testButton = $('#test');
-
-    // Add a click event handler to the "Test" button
-    testButton.click(function () {
-        // URL to be opened in a new tab
-        const urlToOpen = 'https://stake.com/?tab=rakeback&modal=vip';
-
-        // Open the URL in a new tab
-        window.open(urlToOpen, '_blank');
-    });
-});
-
-$(document).ready(function () {
-    // Wait for the document to be fully loaded
-
-    // Select the "Test" button by its ID
     const tipButton = $('#tipxlate');
 
-    // Add a click event handler to the "Test" button
     tipButton.click(function () {
         const selectedStake = stakeSelector.val();
         const selectedCrypto = cryptoSelector.val();
         const urlTipToOpen = `https://${selectedStake}/casino/home?tab=tip&modal=wallet&name=Xlate&currency=${selectedCrypto}`;
 
-        // Open the URL in a new tab
         window.open(urlTipToOpen, '_blank');
     });
 });
 
 $(document).ready(function () {
-    // Function to get URL parameters
     const getUrlParameter = function (name) {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -106,22 +93,17 @@ $(document).ready(function () {
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
-    // Retrieve the selected domain from the URL parameter
     const selectedStake = getUrlParameter('selectedStake');
     if (selectedStake) {
-        // Set the default value for the domain selector
         $('#stakeSelector').val(selectedStake);
     }
 });
 
-// Get DOM elements
 const reloadCheckbox = document.getElementById('reload');
 const countdownTimer = document.getElementById('countdownTimer');
 
 let reloadInterval;
 
-
-// Function to construct reload URL and open it
 function openReloadUrl() {
     const selectedStake = stakeSelector.val();
     const selectedCrypto = cryptoSelector.val();
@@ -129,7 +111,6 @@ function openReloadUrl() {
     window.open(reloadUrl, '_blank');
 }
 
-// Function to handle messages from background script
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.type === 'countdownContainer') {
         clearInterval(reloadInterval);
@@ -141,13 +122,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         stopReload();
         reloadCheckbox.checked = false;
     } else if (request.type === 'ReloadFinished') {
-        const { time, date } = request.data; // Destructure time and date from request data
+        const { time, date } = request.data;
         const currentTime = new Date();
         const [hourss, minutess] = time.split(':').map(str => parseInt(str));
         const [dayss, month, year] = date.split('.').map(str => parseInt(str));
-        const reloadTime = new Date(year, month - 1, dayss, hourss, minutess); // month is 0-based index, hence month - 1
+        const reloadTime = new Date(year, month - 1, dayss, hourss, minutess);
         
-        // Check if reload time is later than current time
         if (reloadTime > currentTime) {
             reloadCheckbox.checked = false;
             reloadCheckbox.checked = true;
@@ -157,9 +137,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             reloadCheckbox.checked = false;
         }
     } else if (request.type === 'timeAndDate') {
-        const { time, date } = request.data;
-        ReloadD.text(`Reload expires at: ${time} ${date}`);
+        const { time, date, date1 } = request.data;
+        const formattedDate1 = date1 !== undefined ? date1 : "";
+        ReloadD.text(`Reload expires at: ${time} ${date} ${formattedDate1}`);
     }
+    
 });
 
 function startCountdown(hours, minutes, seconds) {
@@ -172,7 +154,7 @@ function startCountdown(hours, minutes, seconds) {
 
         if (distance < 0) {
             clearInterval(reloadInterval);
-            openReloadUrl(); // Call your function here
+            openReloadUrl();
         } else {
             let nextReloadTime;
             if (isNaN(countDownDate)) {
@@ -180,7 +162,7 @@ function startCountdown(hours, minutes, seconds) {
                 reloadCheckbox.checked = false;
                 reloadCheckbox.checked = true;
             } else {
-                nextReloadTime = countDownDate.toLocaleTimeString(); // Convert to local time string
+                nextReloadTime = countDownDate.toLocaleTimeString();
             }
             countdownTimer.textContent = `Next Reload at: ${nextReloadTime}`;
         }
@@ -188,12 +170,10 @@ function startCountdown(hours, minutes, seconds) {
 }
 
 
-// Function to stop reload interval
 function stopReload() {
     clearInterval(reloadInterval);
 }
 
-// Event listener for checkbox change
 reloadCheckbox.addEventListener('change', function() {
     if (this.checked) {
         openReloadUrl();
@@ -203,8 +183,8 @@ reloadCheckbox.addEventListener('change', function() {
 });
 
 const disconnectAndReconnect = () => {
-    clearLog(); // Clear messages log
-    close(); // Disconnect
+    clearLog();
+    close();
     setTimeout(() => {
         connectButton.click();
     }, 15000);
@@ -214,7 +194,7 @@ const disconnectAndReconnect = () => {
 };
 
 const startDisconnectInterval = () => {
-    disconnectInterval = setInterval(disconnectAndReconnect, 8500000); // 4 hours in milliseconds
+    disconnectInterval = setInterval(disconnectAndReconnect, 8500000);
 };
 
 const stopDisconnectInterval = () => {
@@ -247,7 +227,6 @@ const getNowDateStr = function () {
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
 
-    // Customize the format as needed
     const res = `${hours}:${minutes}`;
     return res;
 };
@@ -260,7 +239,6 @@ const getMainLogDateStr = function () {
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
 
-    // Customize the format as needed
     const res = `${hours}:${minutes}`;
     return res;
 };
@@ -271,7 +249,6 @@ const getBonusCodeDateStr = function () {
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
 
-    // Customize the format as needed
     const res = `${hours}:${minutes}:${seconds}`;
     return res;
 };
@@ -302,14 +279,12 @@ const onOpen = function () {
     sendButtonHelp.removeClass('disabledText');
     lastMsgsNum.removeAttr('disabled');
 
-    // Disable the sendMessage textarea
     sendMessage.attr('disabled', 'disabled');
 };
 
 const onClose = function () {
     ws = null;
 
-    // Enable the sendMessage textarea
     sendMessage.removeAttr('disabled');
 };
 
@@ -322,9 +297,9 @@ sendChatMessageButton.click(function () {
 });
 
 chatMessageInput.keydown(function (e) {
-    if (e.which === 13) { // 13 is the key code for Enter
-        sendChatMessageButton.click(); // Trigger the click event of the sendChatMessageButton
-        e.preventDefault(); // Prevent the default behavior of the "Enter" key (e.g., adding a new line)
+    if (e.which === 13) {
+        sendChatMessageButton.click();
+        e.preventDefault();
     }
 });
 
@@ -429,11 +404,10 @@ const addBonusMessage = function (data) {
         }
         msgBox.scrollTop = msgBox.scrollHeight;
 
-        // Extracted code to open URL
         const selectedStake = stakeSelector.val();
         const selectedCrypto = cryptoSelector.val();
         const urlPrefix = `https://${selectedStake}/settings/offers?type=drop&code=`;
-        const urlSuffix = `&currency=${selectedCrypto}&modal=redeemBonus`;
+        const urlSuffix = `&currency=${selectedCrypto}&modal=redeemBonus&app=CodeClaim`;
         const url = `${urlPrefix}${bonusCode}${urlSuffix}`;
         window.open(url, '_blank');
     } else {
@@ -445,38 +419,31 @@ const displayNewsMessage = function (news) {
 
 };
 
-// Function to handle server reply and update the registration info
 const handleServerReply = function (reply) {
     const registrationSpan = $('#115');
 
     if (reply === 'Verifying Username.') {
-        // Ignore the "Verifying Username." message
         return;
     }
 
     if (reply.includes(' your username verified. You are registered until ')) {
-        // Extract the username and registration date from the reply
         const usernameIndex = reply.indexOf(',');
         const untilIndex = reply.lastIndexOf('until');
-        const username = reply.substring(0, usernameIndex).trim(); // Extract the username
-        let registrationDate = reply.substring(untilIndex + 6).trim(); // Extract the registration date
+        const username = reply.substring(0, usernameIndex).trim();
+        let registrationDate = reply.substring(untilIndex + 6).trim();
 
-        // Format the registration date as DD-MM-YYYY
-        registrationDate = registrationDate.replace(/\./g, ''); // Remove any periods
+        registrationDate = registrationDate.replace(/\./g, '');
         const dateComponents = registrationDate.split('-');
         const formattedDate = `${dateComponents[2]}.${dateComponents[1]}.${dateComponents[0]}`;
 
-        // Update the registration info in the span
         registrationSpan.text(`Server Registration : Registered until ${formattedDate}`);
     } else if (reply === 'Not Registered user, please contact @Ardag7 via Telegram') {
         registrationSpan.text('Server Registration : Not registered User.');
     } else if (reply.startsWith('Access for ')) {
-        // Extract the username from the reply
         const username = reply.substring(10, reply.indexOf(' has expired'));
 
         registrationSpan.text(`Server Registration : Registration for ${username} expired.`);
     } else if (reply.endsWith('already connected, please try another username')) {
-        // Extract the username from the reply
         const username = reply.substring(0, reply.indexOf(' already connected'));
 
         registrationSpan.text(`Server Registration : User already connected with username ${username}.`);
@@ -489,20 +456,16 @@ const onMessage = function (event) {
         const buffer = new Uint8Array(data);
         data = new TextDecoder().decode(buffer).slice(1);
     }
-
-    // Check if the received message is "Alive" and skip logging
     if (data === 'Alive') {
         return;
     }
-
-    // Check if the message contains any of the specified phrases to close the connection
     if (
         data.includes('Not Registered user') ||
         data.includes('has expired') ||
         data.includes('already connected')
     ) {
         setTimeout(() => {
-            close(); // Close the connection
+            close();
             return;
         }, 500);
 
@@ -514,48 +477,42 @@ const onMessage = function (event) {
         return;
     }
 
-    console.log('Received data:', data); // Log the received data for debugging
+    console.log('Received data:', data);
 
-    handleServerReply(data); // Call the function to handle the server reply
+    handleServerReply(data);
 
-    // Check if the received message starts with 'News: '
     if (data.startsWith('News: ')) {
-        const news = data.substring(6); // Extract the news part
-        displayNewsMessage(news); // Call the displayNewsMessage function
-        addNewsMessage(news); // Add news message to the new div
+        const news = data.substring(6);
+        displayNewsMessage(news);
+        addNewsMessage(news);
     }
     else if (data.startsWith('Link:')) {
         const linkPrefix = 'https://playstake.info/bonus?code=';
-        const link = data.substring(6).trim(); // Extract the link part
+        const link = data.substring(6).trim();
 
         if ($('#claimAutomatically').is(':checked')) {
             if (link.startsWith(linkPrefix)) {
                 const bonus = link.substring(linkPrefix.length);
                 const selectedStake = stakeSelector.val();
                 const selectedCrypto = cryptoSelector.val();
-                const url = `https://${selectedStake}/?bonus=${bonus}&code=${bonus}&currency=${selectedCrypto}&modal=redeemBonus`;
+                const url = `https://${selectedStake}/?bonus=${bonus}&code=${bonus}&currency=${selectedCrypto}&modal=redeemBonus&app=CodeClaim`;
 
-                // Add your logic here or open the new URL in a new window
                 window.open(url, '_blank');
             }
         } else {
-            // Open the URL without checkbox condition
             if (!link.startsWith(linkPrefix)) {
                 const url = `${link}`;
                 window.open(url, '_blank');
             }
         }
-        // Original code for displaying and adding news message
-        const news = data.substring(6); // Extract the news part
-        displayNewsMessage(news); // Call the displayNewsMessage function
-        addNewsMessage(news); // Add news message to the new div
+        const news = data.substring(6);
+        displayNewsMessage(news);
+        addNewsMessage(news);
     }
     else if (data.startsWith('Bonus Code:')) {
-        // Handle Bonus Code messages
         addBonusMessage(data);
     }
     else {
-        // Handle other types of messages
         addMessage(data);
     }
 };
@@ -575,7 +532,7 @@ const close = function () {
     sendButtonHelp.addClass('disabledText');
     lastMsgsNum.removeAttr('disabled');
 
-    stopDisconnectInterval(); // Stop the interval when manually closing the connection
+    stopDisconnectInterval();
 };
 
 const onError = function (event) {
@@ -607,7 +564,7 @@ const open = function () {
     connectionStatus.text('Connecting ...');
     enableConnectButton();
 
-    startDisconnectInterval(); // Start the interval when the connection is established
+    startDisconnectInterval();
 };
 
 const clearLog = function () {
@@ -675,10 +632,7 @@ const init = function () {
     binaryType = $('#binaryType');
     filterMessage = $('#filterMessage');
     lastMsgsNum = $('#lastMsgsNum');
-
     connectionStatus = $('#connectionStatus');
-
-    
     connectButton = $('#connectButton');
     disconnectButton = $('#disconnectButton');
     sendButton = $('#sendButton');
@@ -687,56 +641,39 @@ const init = function () {
     showMsgTsMilliseconds = $('#showMsgTsMilliseconds');
     viewMessageChk = $('#viewMessageChk');
     parseURLButton = $('#parseURLButton');
-
     messages = $('#messages');
     viewMessage = $('#viewMessage');
     sendMessage = $('#sendMessage');
 
-    // Implement a MutationObserver
     const sendMessageObserver = new MutationObserver(function(mutationsList, observer) {
         for(let mutation of mutationsList) {
-            // Check if the mutation type is 'childList' and the target node is 'sendMessage'
             if (mutation.type === 'childList' && mutation.target.id === 'sendMessage') {
-                // Update the connect button state when the content of 'sendMessage' changes
                 updateConnectButtonState();
             }
         }
     });
 
-    // Configure the observer to watch for changes to the child nodes of 'sendMessage'
     const sendMessageObserverConfig = { childList: true };
 
-    // Start observing the 'sendMessage' element for changes
     sendMessageObserver.observe(sendMessage.get(0), sendMessageObserverConfig);
 
-    // Update the connect button state function
     const updateConnectButtonState = function () {
-        const username = sendMessage.text().trim(); // Trim the input to remove leading and trailing spaces
-        const isUsernameValid = username.length >= 4; // Check if the username length is at least 4 characters
-        connectButton.prop('disabled', !isUsernameValid); // Disable the connect button if the username is not valid
-        connectButton.toggleClass('disabled', !isUsernameValid); // Add a class to visually indicate that the button is disabled
+        const username = sendMessage.text().trim();
+        const isUsernameValid = username.length >= 4;
+        connectButton.prop('disabled', !isUsernameValid);
+        connectButton.toggleClass('disabled', !isUsernameValid);
     };
 
-    // Call the updateConnectButtonState function initially
     updateConnectButtonState();
-    
-    
-    
     updateConnectButtonState();
-
     connectButton.click(connectButtonOnClick);
-    
     disconnectButton.click(close);
-
-
     filterMessage.on('input', onFilter);
     showMsgTsMilliseconds.change(showMsgTsMillisecondsOnChange);
     viewMessageChk.change(viewMessageToggle);
-
     sendMessage
     .keydown(sendMessageOnKeydown)
     .on('change', sendMessageOnChange);
-
     clearMsgButton.click(clearLog);
     filterMessage.on('input', onFilter);
     showMsgTsMilliseconds.change(showMsgTsMillisecondsOnChange);
@@ -745,5 +682,5 @@ const init = function () {
 
 $(() => {
     init();
-    startDisconnectInterval(); // Start the interval when the page is loaded
+    startDisconnectInterval();
 });

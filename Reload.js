@@ -9,26 +9,21 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
 });
 
-// Function to extract time and date from the given element
 function extractTimeAndDate() {
     const element = document.querySelector('span.svelte-1d6bfct span.chromatic-ignore');
     if (element) {
         const dateTimeString = element.innerText.trim();
-        const [time, date] = dateTimeString.split(' ');
-        return { time, date };
+        const [time, date, date1] = dateTimeString.split(' ');
+        return { time, date, date1 };
     }
     return null;
 }
-
-// Fetch time and date and send message to background script
 function fetchTimeAndDateAndSendMessage() {
     const timeAndDate = extractTimeAndDate();
     if (timeAndDate) {
         chrome.runtime.sendMessage({ type: 'timeAndDate', data: timeAndDate });
     }
 }
-
-// Function to periodically check for the existence of the element
 function injectReload2Script() {
     const maxAttempts = 50;
     let attempts = 0;
@@ -148,7 +143,6 @@ function injectReloadScript() {
                     }
                 });
     
-                // Check if any of the values are still undefined or NaN
                 if (days !== undefined && hours !== undefined && minutes !== undefined && seconds !== undefined) {
                     console.log('Countdown sent');
                     chrome.runtime.sendMessage({ type: "CountDFoundandsent" });
@@ -165,7 +159,6 @@ function injectReloadScript() {
                         }, 4000);
                     });
                 } else {
-                    // Fetch again if any value is still undefined or NaN
                     fetchCountdownAndSendMessage();
                 }
             } else {
@@ -176,7 +169,5 @@ function injectReloadScript() {
                 }, 30000);
             }
         }, 100);
-    }
-    
-    
+    } 
 }
